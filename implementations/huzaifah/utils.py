@@ -25,7 +25,7 @@ def init_logger(logger:logging.Logger, output:str,
     logger.addHandler(file_handler)
 
 
-def make_dir(path):
+def make_dir(path:str)->str:
     """
     Creates the directory if it does not exist
     """
@@ -37,7 +37,7 @@ def make_dir(path):
 OUTPUT_PATH = make_dir(OUTPUT_PATH)
 
 
-def parse_arguments():
+def parse_arguments()->dict:
     """
     Get arguments from command line
     """
