@@ -1,0 +1,12 @@
+# Data
+INPUT_PATH = 'input/'
+OUTPUT_PATH = 'saved_models/'
+
+# Training
+FEATURE_TYPE = 'narrowband_mel'
+MODEL_ARCH = 'conv-3'
+VALID_RATIO = 0.1
+BATCH_SIZE = 100
+NUM_EPOCHS = 200
+LEARNING_RATE = 0.01
+REGULARIZATION_FACTOR = 0.01
