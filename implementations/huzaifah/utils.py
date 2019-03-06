@@ -1,9 +1,28 @@
 import os
+import logging
 import argparse
 from config import *
 
 
-__all__ = ['parse_arguments']
+__all__ = ['parse_arguments', 'init_logger']
+
+
+def init_logger(logger:logging.Logger, output:str,
+                verbose:bool=False):
+    stream_handler = logging.StreamHandler()
+    if verbose:
+        stream_handler.setLevel(logging.DEBUG)
+    else:
+        stream_handler.setLevel(logging.INFO)
+    ch_formatter = logging.Formatter('%(levelname)s:%(message)s')
+    stream_handler.setFormatter(ch_formatter)
+
+    file_handler = logging.FileHandler(output)
+    fh_formatter = logging.Formatter('%(asctime)s: %(levelname)s - %(message)s')
+    file_handler.setFormatter(fh_formatter)
+
+    logger.addHandler(stream_handler)
+    logger.addHandler(file_handler)
 
 
 def make_dir(path):
