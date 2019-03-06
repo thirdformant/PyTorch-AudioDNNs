@@ -48,7 +48,8 @@ def parse_arguments()->dict:
     parser.add_argument('-output_dir', '--output_dir', dest='output_dir',
         type=str, default=OUTPUT_PATH, help='Path to directory where trained model will be saved.')
     parser.add_argument('-ft', '--feature_type', dest='feature_type',
-        type=str, default=FEATURE_TYPE, help="""
+        type=str, default=FEATURE_TYPE, choices=['wideband_linear', 'narrowband_linear', 'wideband_mel', 'narrowband_mel'],
+        help="""
         The type of audio feature to be used for training, where
             'wideband_linear': Wideband linear-scaled STFT spectrogram;
             'narrowband_linear': Narrowband linear-scaled STFT spectrogram;
