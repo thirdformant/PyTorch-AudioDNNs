@@ -1,12 +1,16 @@
 import os
 import logging
 import argparse
+from typing import Collection, Optional, Tuple, Union
 from config import *
 
 
-__all__ = ['parse_arguments', 'init_logger']
+__all__ = ['parse_arguments', 'init_logger', 'files_from_dir']
 
 
+#==================
+# Logging
+#==================
 def init_logger(logger:logging.Logger, output:str,
                 verbose:bool=False):
     stream_handler = logging.StreamHandler()
@@ -25,6 +29,9 @@ def init_logger(logger:logging.Logger, output:str,
     logger.addHandler(file_handler)
 
 
+#==================
+# Directories
+#==================
 def make_dir(path:str)->str:
     """
     Creates the directory if it does not exist
@@ -37,6 +44,25 @@ def make_dir(path:str)->str:
 OUTPUT_PATH = make_dir(OUTPUT_PATH)
 
 
+def files_from_dir(audio_dir:str)->Tuple[Collection[str],
+                                   Collection[Union[str, int]]]:
+    files = []
+    labels = []
+    dir_names = [d for d in os.listdir(audio_dir)
+                if os.path.isdir(os.path.join(audio_dir, d))]
+    for label in dir_names:
+        file_names = [os.path.join(audio_dir, label, filenames)
+                     for filenames in os.listdir(os.path.join(audio_dir, label))
+                     if filenames.lower().endswith(".wav")]
+        for fname in file_names:
+            files.append(fname)
+            labels.append(label)
+    return files, labels
+
+
+#==================
+# CLI parser
+#==================
 def parse_arguments()->dict:
     """
     Get arguments from command line
